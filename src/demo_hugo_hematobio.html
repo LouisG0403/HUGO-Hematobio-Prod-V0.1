@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Réseau HUGO HEMATOBIO</title>
+
+  <style>
+
+    /* =========================================================
+       VARIABLES
+    ========================================================= */
+
+    :root {
+      --orange: #DD9450;
+      --jaune: #EBBB4E;
+      --violet: #442966;
+      --mauve: #A93D75;
+      --rose: #E72D80;
+
+      --bg-dark: #0d0914;
+      --bg-dark-2: #171021;
+
+      --text: #2a2030;
+      --text-light: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg-dark);
+    }
+
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      line-height: 1.5;
+      overflow-x: hidden;
+
+      background: transparent;
+    }
+
+
+    /* =========================================================
+       FOND ANIMÉ MÉDICAL
+    ========================================================= */
+
+    .bg-animation-container {
+      position: fixed;
+      inset: 0;
+
+      z-index: -1;
+
+      overflow: hidden;
+      pointer-events: none;
+
+      background:
+        radial-gradient(
+          circle at 50% 0%,
+          rgba(169, 61, 117, 0.20),
+          transparent 35%
+        ),
+        radial-gradient(
+          circle at 100% 100%,
+          rgba(68, 41, 102, 0.40),
+          transparent 45%
+        ),
+        linear-gradient(
+          135deg,
+          #09060f 0%,
+          #171021 50%,
+          #0c0812 100%
+        );
+    }
+
+
+    /* =========================================================
+       GRILLE SCIENTIFIQUE
+    ========================================================= */
+
+    .bg-animation-container::before {
+      content: "";
+
+      position: absolute;
+      inset: 0;
+
+      background-image:
+        linear-gradient(
+          rgba(235, 187, 78, 0.035) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(235, 187, 78, 0.035) 1px,
+          transparent 1px
+        );
+
+      background-size: 70px 70px;
+
+      mask-image:
+        radial-gradient(
+          ellipse at center,
+          black,
+          transparent 75%
+        );
+
+      opacity: 0.5;
+    }
+
+
+    /* =========================================================
+       POINTS / DONNÉES BIOLOGIQUES
+    ========================================================= */
+
+    .bg-animation-container::after {
+      content: "";
+
+      position: absolute;
+      inset: 0;
+
+      opacity: 0.35;
+
+      background-image:
+        radial-gradient(
+          circle,
+          rgba(231, 45, 128, 0.7) 1px,
+          transparent 1.5px
+        );
+
+      background-size: 90px 90px;
+
+      animation: molecularDrift 35s linear infinite;
+    }
+
+
+    /* =========================================================
+       CELLULES ANIMÉES
+    ========================================================= */
+
+    .cellule-anim-1,
+    .cellule-anim-2,
+    .cellule-anim-3,
+    .cellule-anim-4 {
+      position: absolute;
+
+      border-radius: 50%;
+
+      pointer-events: none;
+    }
+
+
+    /* Grande cellule rose */
+
+    .cellule-anim-1 {
+      width: 60vw;
+      height: 60vw;
+
+      top: -25vh;
+      left: -20vw;
+
+      background:
+        radial-gradient(
+          circle at 40% 40%,
+          rgba(231, 45, 128, 0.35),
+          rgba(169, 61, 117, 0.16) 35%,
+          transparent 72%
+        );
+
+      filter: blur(45px);
+
+      animation: celluleFloat1 24s ease-in-out infinite;
+    }
+
+
+    /* Grande cellule violette */
+
+    .cellule-anim-2 {
+      width: 65vw;
+      height: 65vw;
+
+      bottom: -35vh;
+      right: -25vw;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(68, 41, 102, 0.55),
+          rgba(68, 41, 102, 0.15) 50%,
+          transparent 72%
+        );
+
+      filter: blur(50px);
+
+      animation: celluleFloat2 30s ease-in-out infinite;
+    }
+
+
+    /* Cellule dorée */
+
+    .cellule-anim-3 {
+      width: 25vw;
+      height: 25vw;
+
+      top: 30%;
+      right: 5%;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(235, 187, 78, 0.20),
+          transparent 70%
+        );
+
+      filter: blur(35px);
+
+      animation: celluleFloat3 18s ease-in-out infinite;
+    }
+
+
+    /* Cellule rose secondaire */
+
+    .cellule-anim-4 {
+      width: 22vw;
+      height: 22vw;
+
+      top: 60%;
+      left: 3%;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(231, 45, 128, 0.25),
+          transparent 70%
+        );
+
+      filter: blur(30px);
+
+      animation: celluleFloat4 22s ease-in-out infinite;
+    }
+
+
+    /* =========================================================
+       ANIMATIONS
+    ========================================================= */
+
+    @keyframes celluleFloat1 {
+
+      0%, 100% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      50% {
+        transform: translate(14vw, 10vh) scale(1.12);
+      }
+
+    }
+
+
+    @keyframes celluleFloat2 {
+
+      0%, 100% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      50% {
+        transform: translate(-14vw, -10vh) scale(1.10);
+      }
+
+    }
+
+
+    @keyframes celluleFloat3 {
+
+      0%, 100% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      50% {
+        transform: translate(-10vw, 8vh) scale(1.2);
+      }
+
+    }
+
+
+    @keyframes celluleFloat4 {
+
+      0%, 100% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      50% {
+        transform: translate(12vw, -8vh) scale(1.15);
+      }
+
+    }
+
+
+    @keyframes molecularDrift {
+
+      from {
+        transform: translate(0, 0);
+      }
+
+      to {
+        transform: translate(90px, 90px);
+      }
+
+    }
+
+
+    /* =========================================================
+       CONTENU PRINCIPAL
+    ========================================================= */
+
+    .page-content {
+      position: relative;
+      z-index: 1;
+    }
+
+
+    /* =========================================================
+       BANNIÈRE
+    ========================================================= */
+
+    .banner {
+      background:
+        linear-gradient(
+          90deg,
+          var(--orange),
+          var(--jaune),
+          var(--orange)
+        );
+
+      color: var(--violet);
+
+      text-align: center;
+
+      padding: 9px;
+
+      font-size: 0.85rem;
+      font-weight: 700;
+
+      position: relative;
+      z-index: 100;
+    }
+
+
+    /* =========================================================
+       HEADER
+    ========================================================= */
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      padding: 18px 40px;
+
+      background: rgba(255, 255, 255, 0.95);
+
+      box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.10);
+
+      position: sticky;
+      top: 0;
+
+      z-index: 100;
+
+      backdrop-filter: blur(12px);
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 1.5rem;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    nav a {
+      text-decoration: none;
+
+      color: var(--violet);
+
+      font-weight: 700;
+      font-size: 0.9rem;
+
+      padding: 10px 14px;
+
+      border-radius: 10px;
+
+      transition: 0.3s ease;
+    }
+
+    nav a:hover {
+      color: white;
+      background: var(--rose);
+
+      transform: translateY(-2px);
+
+      box-shadow:
+        0 8px 18px rgba(231, 45, 128, 0.25);
+    }
+
+
+    /* =========================================================
+       HERO
+    ========================================================= */
+
+    .hero {
+      position: relative;
+
+      overflow: hidden;
+
+      padding: 110px 40px;
+
+      text-align: center;
+
+      color: white;
+
+      background:
+        linear-gradient(
+          120deg,
+          rgba(68, 41, 102, 0.90),
+          rgba(169, 61, 117, 0.88)
+        );
+
+      box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.25);
+    }
+
+    .hero::before {
+      content: "";
+
+      position: absolute;
+
+      width: 500px;
+      height: 500px;
+
+      top: -300px;
+      right: -100px;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(235, 187, 78, 0.30),
+          transparent 70%
+        );
+
+      filter: blur(30px);
+
+      animation: heroPulse 10s ease-in-out infinite;
+    }
+
+    .hero::after {
+      content: "";
+
+      position: absolute;
+
+      width: 450px;
+      height: 450px;
+
+      bottom: -280px;
+      left: -100px;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(231, 45, 128, 0.35),
+          transparent 70%
+        );
+
+      filter: blur(40px);
+
+      animation: heroPulse 14s ease-in-out infinite reverse;
+    }
+
+    .hero h1,
+    .hero p,
+    .hero .btn {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+
+      margin-bottom: 18px;
+
+      color: white;
+    }
+
+    .hero p {
+      max-width: 700px;
+
+      margin: 0 auto 32px;
+
+      color: rgba(255, 255, 255, 0.92);
+
+      font-size: 1.05rem;
+    }
+
+
+    /* =========================================================
+       BOUTON
+    ========================================================= */
+
+    .btn {
+      display: inline-block;
+
+      background: var(--rose);
+
+      color: white;
+
+      padding: 14px 30px;
+
+      border-radius: 30px;
+
+      text-decoration: none;
+
+      font-weight: 700;
+
+      box-shadow:
+        0 10px 25px rgba(231, 45, 128, 0.35);
+
+      transition: 0.3s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+
+      background: var(--jaune);
+
+      color: var(--violet);
+    }
+
+
+    /* =========================================================
+       SECTIONS TRANSPARENTES
+    ========================================================= */
+
+    section {
+      position: relative;
+
+      padding: 70px 40px;
+
+      max-width: 1100px;
+
+      margin: 0 auto;
+
+      color: white;
+    }
+
+
+    /* Surface de lecture */
+
+    section::before {
+      content: "";
+
+      position: absolute;
+
+      inset: 30px 20px;
+
+      z-index: -1;
+
+      border-radius: 24px;
+
+      background:
+        rgba(255, 255, 255, 0.95);
+
+      box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.20);
+
+      backdrop-filter: blur(12px);
+    }
+
+
+    h2 {
+      color: var(--violet);
+
+      font-size: 2rem;
+
+      margin-bottom: 10px;
+
+      border-left:
+        5px solid var(--rose);
+
+      padding-left: 14px;
+    }
+
+    .sub {
+      color: #5e5662;
+
+      margin-bottom: 30px;
+    }
+
+
+    /* =========================================================
+       CARTES
+    ========================================================= */
+
+    .grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
+      gap: 22px;
+    }
+
+    .card {
+      background:
+        rgba(255, 255, 255, 0.92);
+
+      color: var(--text);
+
+      border-radius: 16px;
+
+      padding: 26px;
+
+      border-top:
+        4px solid var(--orange);
+
+      box-shadow:
+        0 10px 30px rgba(20, 10, 30, 0.12);
+
+      transition: 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-7px);
+
+      box-shadow:
+        0 20px 45px rgba(0, 0, 0, 0.18);
+    }
+
+    .card h3 {
+      color: var(--violet);
+
+      margin-bottom: 10px;
+
+      font-size: 1.1rem;
+    }
+
+    .card p {
+      color: #5e5662;
+    }
+
+
+    /* =========================================================
+       CENTRES
+    ========================================================= */
+
+    .centres {
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 12px;
+    }
+
+    .centres span {
+      background: var(--jaune);
+
+      color: var(--violet);
+
+      padding: 9px 17px;
+
+      border-radius: 20px;
+
+      font-weight: 700;
+
+      font-size: 0.85rem;
+
+      transition: 0.3s ease;
+    }
+
+    .centres span:hover {
+      transform: translateY(-2px);
+
+      box-shadow:
+        0 8px 18px rgba(235, 187, 78, 0.35);
+    }
+
+
+    /* =========================================================
+       NEWS
+    ========================================================= */
+
+    .news {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(260px, 1fr));
+
+      gap: 22px;
+    }
+
+    .news .card {
+      border-top-color: var(--mauve);
+    }
+
+    .tag {
+      display: inline-block;
+
+      font-size: 0.7rem;
+
+      text-transform: uppercase;
+
+      color: var(--rose);
+
+      font-weight: 800;
+
+      margin-bottom: 10px;
+    }
+
+
+    /* =========================================================
+       FORMULAIRE
+    ========================================================= */
+
+    .contact-form {
+      display: grid;
+
+      gap: 14px;
+
+      max-width: 500px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      padding: 14px;
+
+      border:
+        1px solid rgba(68, 41, 102, 0.20);
+
+      border-radius: 10px;
+
+      font-family: inherit;
+
+      outline: none;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      border-color: var(--rose);
+
+      box-shadow:
+        0 0 0 4px rgba(231, 45, 128, 0.12);
+    }
+
+    .contact-form button {
+      background: var(--rose);
+
+      color: white;
+
+      border: none;
+
+      padding: 14px;
+
+      border-radius: 10px;
+
+      font-weight: 700;
+
+      cursor: pointer;
+
+      transition: 0.3s ease;
+    }
+
+    .contact-form button:hover {
+      background: var(--mauve);
+
+      transform: translateY(-2px);
+    }
+
+
+    /* =========================================================
+       FOOTER
+    ========================================================= */
+
+    footer {
+      position: relative;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--violet),
+          #21152f
+        );
+
+      color: white;
+
+      padding: 45px;
+
+      text-align: center;
+
+      font-size: 0.85rem;
+
+      box-shadow:
+        0 -10px 40px rgba(0, 0, 0, 0.20);
+    }
+
+
+    /* =========================================================
+       ANIMATIONS
+    ========================================================= */
+
+    @keyframes heroPulse {
+
+      0%, 100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.15);
+      }
+
+    }
+
+
+    /* =========================================================
+       RESPONSIVE
+    ========================================================= */
+
+    @media (max-width: 800px) {
+
+      header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 18px 20px;
+      }
+
+      nav {
+        justify-content: center;
+      }
+
+      .hero {
+        padding: 80px 24px;
+      }
+
+      section {
+        padding: 55px 20px;
+      }
+
+    }
+
+
+    /* =========================================================
+       ACCESSIBILITÉ
+    ========================================================= */
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+
+  <!-- FOND ANIMÉ -->
+
+  <div class="bg-animation-container">
+
+    <div class="cellule-anim-1"></div>
+    <div class="cellule-anim-2"></div>
+    <div class="cellule-anim-3"></div>
+    <div class="cellule-anim-4"></div>
+
+  </div>
+
+
+  <!-- CONTENU -->
+
+  <div class="page-content">
+
+
+    <div class="banner">
+      ⚠️ Démo de travail — version 1 — contenu et textes provisoires
+    </div>
+
+
+    <header>
+
+      <div class="logo">
+
+        <img
+          src="images/logo hematobio.png"
+          alt="HUGO HEMATOBIO"
+          style="height:50px"
+        >
+
+      </div>
+
+
+      <nav>
+
+        <a href="#accueil">Accueil</a>
+        <a href="#reseau">Le réseau</a>
+        <a href="#projets">Projets</a>
+        <a href="#formation">Formation</a>
+        <a href="#actus">Actualités</a>
+        <a href="#contact">Contact</a>
+
+      </nav>
+
+    </header>
+
+
+    <main>
+
+
+      <div class="hero" id="accueil">
+
+        <h1>Réseau HUGO HEMATOBIO</h1>
+
+        <p>
+          Fédérer les équipes hospitalo-universitaires du Grand Ouest
+          en hématologie biologique et en hémostase, pour faire progresser
+          la recherche et la formation.
+        </p>
+
+        <a class="btn" href="#contact">
+          Nous contacter
+        </a>
+
+      </div>
+
+
+      <section id="reseau">
+
+        <h2>Le réseau</h2>
+
+        <p class="sub">
+          Coordination, gouvernance et centres partenaires.
+        </p>
+
+
+        <div class="grid">
+
+          <div class="card">
+
+            <h3>Présentation</h3>
+
+            <p>
+              Historique, objectifs et missions du réseau.
+            </p>
+
+          </div>
+
+
+          <div class="card">
+
+            <h3>Gouvernance</h3>
+
+            <p>
+              Coordination et comité de pilotage.
+            </p>
+
+          </div>
+
+
+          <div class="card">
+
+            <h3>Partenaires</h3>
+
+            <p>
+              Institutions et organismes associés.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <h3 style="margin-top:30px;color:var(--violet)">
+          Centres membres
+        </h3>
+
+
+        <div
+          class="centres"
+          style="margin-top:14px"
+        >
+
+          <span>CHU Angers</span>
+          <span>CHU Brest</span>
+          <span>CHU Nantes</span>
+          <span>CHU Rennes</span>
+          <span>CHRU Tours</span>
+          <span>CHU Poitiers</span>
+          <span>CHU Orléans</span>
+          <span>CH Le Mans</span>
+
+        </div>
+
+      </section>
+
+
+      <section id="projets">
+
+        <h2>Projets & axes scientifiques</h2>
+
+        <p class="sub">
+          Hémostase · Hématologie cellulaire · Biologie moléculaire
+        </p>
+
+
+        <div class="grid">
+
+          <div class="card">
+
+            <h3>Projet collaboratif A</h3>
+
+            <p>
+              Objectifs, investigateurs, centres participants,
+              état d'avancement.
+            </p>
+
+          </div>
+
+
+          <div class="card">
+
+            <h3>Projet collaboratif B</h3>
+
+            <p>
+              Fiche descriptive type à compléter.
+            </p>
+
+          </div>
+
+
+          <div class="card">
+
+            <h3>Ressources</h3>
+
+            <p>
+              Réseaux thématiques, biothèques, plateformes.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <section id="formation">
+
+        <h2>Formation</h2>
+
+        <p class="sub">
+          Catalogue de formations, DIU, ressources pédagogiques.
+        </p>
+
+
+        <div class="grid">
+
+          <div class="card">
+
+            <h3>Formation médicale continue</h3>
+
+            <p>
+              Programmes téléchargeables au format PDF.
+            </p>
+
+          </div>
+
+
+          <div class="card">
+
+            <h3>DIU & enseignements</h3>
+
+            <p>
+              Calendrier des sessions universitaires.
+            </p>
+
+          </div>
+
+
+          <div class="card">
+
+            <h3>Pré-inscription</h3>
+
+            <p>
+              Formulaire en ligne à intégrer.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <section id="actus">
+
+        <h2>Actualités & événements</h2>
+
+
+        <div class="news">
+
+          <div class="card">
+
+            <span class="tag">
+              Vie du réseau
+            </span>
+
+            <h3>
+              Journée HUGO HEMATOBIO 2026
+            </h3>
+
+            <p>
+              Date et programme à venir.
+            </p>
+
+          </div>
+
+
+          <div class="card">
+
+            <span class="tag">
+              Appel à projets
+            </span>
+
+            <h3>
+              Appel à projets inter-CHU
+            </h3>
+
+            <p>
+              Ouverture des candidatures.
+            </p>
+
+          </div>
+
+
+          <div class="card">
+
+            <span class="tag">
+              Publication
+            </span>
+
+            <h3>
+              Dernière publication scientifique
+            </h3>
+
+            <p>
+              Résumé à insérer.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <section id="contact">
+
+        <h2>Contact</h2>
+
+        <p class="sub">
+          Une question, un projet ? Écrivez-nous.
+        </p>
+
+
+        <form class="contact-form">
+
+          <input
+            type="text"
+            placeholder="Nom"
+          >
+
+          <input
+            type="email"
+            placeholder="Email"
+          >
+
+          <textarea
+            rows="4"
+            placeholder="Message"
+          ></textarea>
+
+          <button type="button">
+            Envoyer
+          </button>
+
+        </form>
+
+      </section>
+
+
+    </main>
+
+
+    <footer>
+
+      Réseau HUGO HEMATOBIO — GCS HUGO —
+      Hôpitaux Universitaires Grand Ouest
+
+      <br>
+
+      Démo v1 — couleurs et logo conformes
+      à la charte graphique HUGO
+
+    </footer>
+
+
+  </div>
+
+</body>
+
+</html>
