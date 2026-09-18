@@ -1167,30 +1167,18 @@ body {
    RESPONSIVE
 ========================================================= */
 
-@media (max-width: 900px) {
-
-  .header-container {
-    flex-direction: column;
-
-    justify-content: center;
-
-    gap: 12px;
-
-    padding: 18px 20px;
+@media (max-width: 768px) {
+  .network-map {
+    height: 450px;
   }
 
-  .custom-nav {
-    justify-content: center;
-
-    flex-wrap: wrap;
+  .network-marker-label {
+    font-size: 7px;
   }
 
-  .nav-item {
-    padding: 9px 12px;
-
-    font-size: 14px;
+  .network-hugo-label {
+    font-size: 9px;
   }
-
 }
 
 
@@ -1382,11 +1370,9 @@ section .sub {
 .network-map {
   position: relative;
   width: 100%;
-  max-width: 900px;
-  height: 520px;
+  max-width: 1100px;
+  height: 650px;
   margin: 0 auto;
-
-  overflow: visible;
 }
 
 /* Zone SVG */
@@ -3763,4 +3749,322 @@ section .sub {
   .projets-page {
     padding: 45px 20px 60px;
   }
+}
+/* =========================================================
+   INFORMATIONS CENTRE
+========================================================= */
+
+.network-centre-info {
+  position: absolute;
+
+  left: 50%;
+  bottom: -150px;
+
+  transform: translateX(-50%);
+
+  width: min(360px, 90%);
+
+  padding: 20px 22px;
+
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(68, 41, 102, 0.97),
+      rgba(18, 13, 27, 0.98)
+    );
+
+  border: 1px solid rgba(235, 187, 78, 0.35);
+
+  box-shadow:
+    0 15px 40px rgba(0, 0, 0, 0.35),
+    0 0 30px rgba(68, 41, 102, 0.25);
+
+  color: #ffffff;
+
+  z-index: 50;
+}
+
+.network-centre-info-structure {
+  color: #EBBB4E;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  letter-spacing: 0.12em;
+
+  text-transform: uppercase;
+
+  margin-bottom: 6px;
+}
+
+.network-centre-info h3 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.network-centre-info-city {
+  margin: 4px 0 12px;
+
+  color: rgba(255, 255, 255, 0.65);
+
+  font-size: 13px;
+}
+
+.network-centre-info-description {
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.85);
+
+  font-size: 13px;
+
+  line-height: 1.6;
+}
+
+.network-centre-info-close {
+  position: absolute;
+
+  top: 10px;
+  right: 12px;
+
+  width: 28px;
+  height: 28px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  color: #ffffff;
+
+  font-size: 20px;
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.network-centre-info-close:hover {
+  background: rgba(231, 45, 128, 0.25);
+  color: #EBBB4E;
+}
+/* =========================================================
+   HUGO — REAL GEOGRAPHIC NETWORK MAP
+========================================================= */
+
+.network-map {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  height: 760px;
+  margin: 0 auto;
+}
+/* =========================================================
+   SVG MAP
+========================================================= */
+
+.network-map-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* =========================================================
+   FRANCE / REGIONS
+========================================================= */
+
+.network-geography {
+  fill: rgba(68, 41, 102, 0.45);
+  stroke: rgba(235, 187, 78, 0.35);
+  stroke-width: 0.7;
+  transition:
+    fill 0.3s ease,
+    stroke 0.3s ease;
+}
+
+.network-geography:hover {
+  fill: rgba(231, 45, 128, 0.18);
+  stroke: rgba(235, 187, 78, 0.65);
+}
+
+/* =========================================================
+   CONNECTIONS
+========================================================= */
+
+.network-map-line {
+  stroke: #E72D80;
+  stroke-width: 1.2;
+  stroke-opacity: 0.38;
+  stroke-dasharray: 4 5;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+}
+
+/* =========================================================
+   HUGO HUB
+========================================================= */
+
+
+/* =========================================================
+   CHU MARKERS
+========================================================= */
+
+.network-marker {
+  cursor: pointer;
+}
+
+.network-marker-halo {
+  fill: rgba(231, 45, 128, 0.15);
+  stroke: rgba(231, 45, 128, 0.35);
+  stroke-width: 1;
+  transition:
+    fill 0.25s ease,
+    stroke 0.25s ease;
+}
+
+.network-marker-dot {
+  fill: #E72D80;
+  stroke: #ffffff;
+  stroke-width: 1.5;
+  filter:
+    drop-shadow(0 0 5px rgba(231, 45, 128, 0.75));
+  transition:
+    fill 0.25s ease,
+    transform 0.25s ease;
+}
+
+.network-marker:hover .network-marker-halo {
+  fill: rgba(235, 187, 78, 0.22);
+  stroke: rgba(235, 187, 78, 0.6);
+}
+
+.network-marker:hover .network-marker-dot {
+  fill: #EBBB4E;
+}
+
+/* =========================================================
+   LABELS
+========================================================= */
+
+.network-marker-label {
+  fill: #ffffff;
+  font-size: 8px;
+  font-weight: 700;
+  paint-order: stroke;
+  stroke: #120d1b;
+  stroke-width: 3px;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 768px) {
+  .network-map {
+    height: 420px;
+  }
+
+  .network-marker-label {
+    font-size: 7px;
+  }
+
+  .network-hugo-label {
+    font-size: 9px;
+  }
+}
+/* =========================================================
+   HUGO — HUB DU RÉSEAU
+========================================================= */
+
+.network-hugo-hub {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  pointer-events: none;
+}
+
+.network-hugo-hub-ring {
+  width: 118px;
+  height: 118px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(235, 187, 78, 0.12),
+      rgba(68, 41, 102, 0.08) 55%,
+      transparent 70%
+    );
+
+  border: 1px solid rgba(235, 187, 78, 0.45);
+
+  box-shadow:
+    0 0 25px rgba(235, 187, 78, 0.15),
+    0 0 60px rgba(68, 41, 102, 0.25);
+}
+
+.network-hugo-hub-core {
+  width: 82px;
+  height: 82px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      #442966 0%,
+      #211530 72%,
+      #120d1b 100%
+    );
+
+  border: 2px solid #EBBB4E;
+
+  box-shadow:
+    0 0 20px rgba(235, 187, 78, 0.35),
+    0 0 40px rgba(68, 41, 102, 0.55);
+}
+
+.network-hugo-hub-title {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.network-hugo-hub-subtitle {
+  margin-top: 5px;
+
+  color: #EBBB4E;
+
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
 }
