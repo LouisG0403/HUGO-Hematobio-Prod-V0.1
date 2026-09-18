@@ -1,0 +1,18 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: hugo-hematobio-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: hugo_hematobio
+      POSTGRES_USER: hugo
+      POSTGRES_PASSWORD: hugo_dev_password
+    ports:
+      - "15432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+
+
