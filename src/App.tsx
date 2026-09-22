@@ -19,7 +19,7 @@ import AdminCentres from "./pages/AdminCentres";
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/HUGO-Hematobio-Prod-V0.1">
       <Routes>
         {/* SITE PUBLIC */}
         <Route element={<MainLayout />}>
