@@ -17,6 +17,7 @@ type Centre = {
   latitude: string;
   description: string | null;
 };
+import API_URL from "../config/api";
 
 const geoUrl = "/maps/france-regions.geojson";
 
@@ -29,7 +30,7 @@ export default function NetworkMap() {
   useEffect(() => {
     async function fetchCentres() {
       try {
-        const response = await fetch("http://localhost:3000/api/centres");
+        const response = await fetch(`${API_URL}/api/centres`);
 
         if (!response.ok) {
           throw new Error("Impossible de récupérer les centres");

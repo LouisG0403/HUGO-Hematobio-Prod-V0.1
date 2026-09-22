@@ -1,33 +1,54 @@
+
+import { useEffect, useState } from "react";
+import API_URL from "../config/api";
+
+interface Actualite {
+  id: number;
+  tag: string;
+  title: string;
+  description: string;
+  info: string | null;
+  accent: string | null;
+  icon: string | null;
+  published: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
 export default function Actus() {
-  const actualites = [
-    {
-      tag: "Vie du réseau",
-      title: "Journée HUGO HEMATOBIO 2026",
-      description:
-        "La prochaine journée HUGO HEMATOBIO réunira les acteurs du réseau autour de la recherche et de l'innovation en hématologie.",
-      info: "Date et programme à venir",
-      accent: "var(--violet)",
-      icon: "◉",
-    },
-    {
-      tag: "Appel à projets",
-      title: "Appel à projets inter-CHU",
-      description:
-        "Découvrez les nouveaux appels à projets destinés à favoriser les collaborations entre les différents centres du réseau.",
-      info: "Ouverture des candidatures",
-      accent: "var(--rose)",
-      icon: "✦",
-    },
-    {
-      tag: "Publication",
-      title: "Dernière publication scientifique",
-      description:
-        "Retrouvez les dernières publications issues des travaux menés au sein du réseau HUGO HEMATOBIO.",
-      info: "Résumé à venir",
-      accent: "var(--jaune)",
-      icon: "⌁",
-    },
-  ];
+  const [actualites, setActualites] = useState<Actualite[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    async function fetchActualites() {
+      try {
+        const response = await fetch(
+          `${API_URL}/api/actualites`
+        );
+
+        if (!response.ok) {
+          throw new Error(
+            "Impossible de récupérer les actualités."
+          );
+        }
+
+        const data = await response.json();
+
+        setActualites(data);
+      } catch (error) {
+        console.error(error);
+
+        setError(
+          "Impossible de charger les actualités pour le moment."
+        );
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchActualites();
+  }, []);
 
   return (
     <div className="actus-page">
@@ -50,36 +71,62 @@ export default function Actus() {
 
       {/* Actualités */}
       <section className="actus-grid">
-        {actualites.map((actualite) => (
-          <article
-            key={actualite.title}
-            className="actus-card"
-            style={
-              {
-                "--card-accent": actualite.accent,
-              } as React.CSSProperties
-            }
-          >
-            <div className="actus-card-top">
-              <span className="actus-tag">
-                {actualite.tag}
-              </span>
 
-              <div className="actus-icon">
-                {actualite.icon}
+        {loading && (
+          <p>
+            Chargement des actualités...
+          </p>
+        )}
+
+        {!loading && error && (
+          <p>
+            {error}
+          </p>
+        )}
+
+        {!loading &&
+          !error &&
+          actualites.map((actualite) => (
+            <article
+              key={actualite.id}
+              className="actus-card"
+              style={
+                {
+                  "--card-accent":
+                    actualite.accent ?? "var(--violet)",
+                } as React.CSSProperties
+              }
+            >
+              <div className="actus-card-top">
+                <span className="actus-tag">
+                  {actualite.tag}
+                </span>
+
+                <div className="actus-icon">
+                  {actualite.icon ?? "✦"}
+                </div>
               </div>
-            </div>
 
-            <h2>{actualite.title}</h2>
+              <h2>
+                {actualite.title}
+              </h2>
 
-            <p>{actualite.description}</p>
+              <p>
+                {actualite.description}
+              </p>
 
-            <div className="actus-card-footer">
-              <span>{actualite.info}</span>
-              <span className="actus-arrow">→</span>
-            </div>
-          </article>
-        ))}
+              <div className="actus-card-footer">
+                <span>
+                  {actualite.info ?? ""}
+                </span>
+
+                <span className="actus-arrow">
+                  →
+                </span>
+              </div>
+            </article>
+          ))}
+
       </section>
 
       {/* Bandeau inférieur */}
@@ -106,3 +153,4 @@ export default function Actus() {
     </div>
   );
 }
+

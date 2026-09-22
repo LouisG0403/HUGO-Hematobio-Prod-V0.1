@@ -1,8 +1,57 @@
+import { useEffect, useState } from "react";
+import API_URL from "../config/api";
+
+interface Projet {
+  id: number;
+  tag: string;
+  title: string;
+  description: string;
+  icon: string;
+  published: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
 export default function Projets() {
+  const [projets, setProjets] = useState<Projet[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    async function fetchProjets() {
+      try {
+        const response = await fetch(
+          `${API_URL}/api/projets`
+        );
+        if (!response.ok) {
+          throw new Error(
+            "Impossible de récupérer les projets."
+          );
+        }
+
+        const data = await response.json();
+
+        setProjets(data);
+      } catch (error) {
+        console.error(error);
+
+        setError(
+          "Impossible de charger les projets pour le moment."
+        );
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchProjets();
+  }, []);
+
   return (
     <section id="projets" className="page-section">
       <div className="section-heading">
-        <span className="section-eyebrow">Recherche & innovation</span>
+        <span className="section-eyebrow">
+          Recherche & innovation
+        </span>
 
         <h2>Projets & axes scientifiques</h2>
 
@@ -12,47 +61,42 @@ export default function Projets() {
       </div>
 
       <div className="grid project-grid">
-        <article className="card project-card">
-          <div className="project-icon">A</div>
+        {loading && (
+          <p>
+            Chargement des projets...
+          </p>
+        )}
 
-          <div>
-            <span className="project-tag">Recherche collaborative</span>
-            <h3>Projet collaboratif A</h3>
+        {!loading && error && (
+          <p>
+            {error}
+          </p>
+        )}
 
-            <p>
-              Objectifs, investigateurs, centres participants et état
-              d'avancement du projet.
-            </p>
-          </div>
-        </article>
+        {!loading &&
+          !error &&
+          projets.map((projet) => (
+            <article
+              key={projet.id}
+              className="card project-card"
+            >
+              <div className="project-icon">
+                {projet.icon}
+              </div>
 
-        <article className="card project-card">
-          <div className="project-icon">B</div>
+              <div>
+                <span className="project-tag">
+                  {projet.tag}
+                </span>
 
-          <div>
-            <span className="project-tag">Recherche collaborative</span>
-            <h3>Projet collaboratif B</h3>
+                <h3>{projet.title}</h3>
 
-            <p>
-              Fiche descriptive du projet et informations scientifiques à
-              compléter.
-            </p>
-          </div>
-        </article>
-
-        <article className="card project-card">
-          <div className="project-icon">R</div>
-
-          <div>
-            <span className="project-tag">Ressources</span>
-            <h3>Ressources scientifiques</h3>
-
-            <p>
-              Réseaux thématiques, biothèques et plateformes partenaires du
-              réseau.
-            </p>
-          </div>
-        </article>
+                <p>
+                  {projet.description}
+                </p>
+              </div>
+            </article>
+          ))}
       </div>
     </section>
   );

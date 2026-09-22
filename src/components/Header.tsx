@@ -1,44 +1,66 @@
 import { Link, useLocation } from "react-router-dom";
+import logoHematobio from "../assets/images/logo_hematobio.png";
 
 export default function Header() {
   const location = useLocation();
 
-  // Fonction pour savoir si on est sur la page du lien
   const checkActive = (path: string) => {
-    return location.pathname === path ? "nav-item active-page" : "nav-item";
+    return location.pathname === path
+      ? "nav-item active-page"
+      : "nav-item";
   };
 
   return (
     <header className="custom-header">
       <div className="header-container">
-        
-        {/* Zone Logo : Aligné horizontalement au centre */}
-        <Link to="/" style={{ display: 'flex', alignItems: 'center' }}>
+
+        {/* Logo */}
+        <Link
+          to="/"
+          className="header-logo"
+          aria-label="HUGO HEMATOBIO - Accueil"
+        >
           <img
-            src="src/assets/images/logo_hematobio.png"
+            src={logoHematobio}
             alt="HUGO HEMATOBIO"
-            style={{ height: "55px", width: "auto", objectFit: "contain" }}
           />
         </Link>
 
-        {/* Navigation avec Highlight CSS */}
+        {/* Navigation */}
         <nav className="custom-nav">
           <Link to="/" className={checkActive("/")}>
             Accueil
           </Link>
+
           <Link to="/reseau" className={checkActive("/reseau")}>
-            Le réseau
+            Réseau
           </Link>
+
           <Link to="/projets" className={checkActive("/projets")}>
             Projets
           </Link>
+
           <Link to="/formation" className={checkActive("/formation")}>
             Formation
           </Link>
+
           <Link to="/actus" className={checkActive("/actus")}>
             Actualités
           </Link>
+
+          <Link to="/contenus" className={checkActive("/contenus")}>
+            Publications
+          </Link>
         </nav>
+
+        {/* Accès administration */}
+        <Link
+          to="/admin/login"
+          className="admin-access-button"
+        >
+          <span className="admin-access-icon">⚙</span>
+          <span>Espace administrateur</span>
+        </Link>
 
       </div>
     </header>
