@@ -19,7 +19,7 @@ type Centre = {
 };
 import API_URL from "../config/api";
 
-const geoUrl = "/maps/france-regions.geojson";
+const geoUrl = `${import.meta.env.BASE_URL}maps/france-regions.geojson`;
 
 export default function NetworkMap() {
   const [centres, setCentres] = useState<Centre[]>([]);

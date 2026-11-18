@@ -11,3 +11,4 @@ dist/
 
 *.log
 npm-debug.log*tsconfig.tsbuildinfo
+server/src/**/*.js
